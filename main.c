@@ -10,7 +10,6 @@ int main(void)
     int c = 0;
     int doLoop = 1;
     int ask = 1;
-    int backblock = 0;
     char * znaki;
     char * temp;
     znaki = (char*)malloc(8*sizeof(char));
@@ -21,8 +20,6 @@ int main(void)
     
     while (doLoop == 1)
     {
-        backblock = 0;
-
         temp = (char*)malloc(i + 2);
 
         for (k = 1; k <= i; k++)
