@@ -39,7 +39,7 @@ int main(void)
 
         c = getch();
         clear();
-        if (c != 127 && c != 27) 
+        if (c >= 97 && c <= 122) 
         {
             znaki[i] = (char)c;
         }

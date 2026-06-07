@@ -8,9 +8,10 @@ int main(void)
     int i = 1;
     int k = 0;
     int c = 0;
+    int p = 0;
+    int block = 0;
     int doLoop = 1;
     int ask = 1;
-    int backblock = 0;
     char * znaki;
     char * temp;
     znaki = (char*)malloc(8*sizeof(char));
@@ -21,7 +22,6 @@ int main(void)
     
     while (doLoop == 1)
     {
-        backblock = 0;
 
         temp = (char*)malloc(i + 2);
 
@@ -38,11 +38,9 @@ int main(void)
         }
         free(temp);
 
-
-
         c = getch();
         clear();
-        if (c != 127 && c != 27) 
+        if (c != 127 && c!= 27 && c != 1) 
         {
             znaki[i] = (char)c;
         }
@@ -90,6 +88,72 @@ int main(void)
         }
 
 
+
+
+        //funcions//
+        if(c == 1)
+        {
+            printw("\n  FUNCTIONS: \n       z : cut recent word\n       k : cut line\n");
+            refresh();
+            c = getch();
+            if(c == 122)
+            {
+                k = i;
+                block = 0;
+                while (k >= 1 && block != 1)
+                {
+                    if (znaki[k] == 32)
+                    {
+                        for(p = i; p>= k; p--)
+                        {
+                            memset(&znaki[p], 0, sizeof(znaki[p]));
+                        }
+                        i = k-1;
+                        block = 1;
+                    }
+                    else if (k == 1)
+                    {
+                        for(p = i; p>= k; p--)
+                        {
+                            memset(&znaki[p], 0, sizeof(znaki[p]));
+                        }
+                        i = 0;
+                        block = 1;
+                    }
+                    k--;
+                }
+            }
+            else if(c == 107)
+            {
+                k = i;
+                block = 0;
+                while (k >= 1 && block != 1)
+                {
+                    if (znaki[k] == 10)
+                    {
+                        for(p = i; p>= k; p--)
+                        {
+                            memset(&znaki[p], 0, sizeof(znaki[p]));
+                        }
+                        i = k-1;
+                        block = 1;
+                    }
+                    else if (k == 1)
+                    {
+                        for(p = i; p>= k; p--)
+                        {
+                            memset(&znaki[p], 0, sizeof(znaki[p]));
+                        }
+                        i = 0;
+                        block = 1;
+                    }
+                    k--;
+                }
+            }
+            
+            clear();
+        }
+
         for (k = 1; k <= i; k++)
         {
             printw("%c",znaki[k]);
@@ -97,6 +161,11 @@ int main(void)
         refresh();
 
         i++;
+
+
+
+
+
 
 
     }
