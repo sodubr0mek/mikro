@@ -1,71 +1,106 @@
 #include <ncurses.h>
-#include<string.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main (void) 
+
+int main(void)
 {
-    char text[4000];
-    int c;
-    int i = 0;
-    int k;
+    int i = 1;
+    int k = 0;
+    int c = 0;
+    int doLoop = 1;
+    int ask = 1;
+    int backblock = 0;
+    char * znaki;
+    char * temp;
+    znaki = (char*)malloc(8*sizeof(char));
+    temp = (char*)malloc(8*sizeof(char));
 
 
     initscr();
-
-    for (i=1; i<=4001; i++)
+    
+    while (doLoop == 1)
     {
+        backblock = 0;
+
+        temp = (char*)malloc(i + 2);
+
+        for (k = 1; k <= i; k++)
+        {
+            temp[k] = znaki[k];
+        }
+
+        znaki = (char*)malloc(i + 2);
+
+        for (k = 1; k <= i; k++)
+        {
+            znaki[k] = temp[k];
+        }
+        free(temp);
+
+
+
         c = getch();
         clear();
-        if (c != 127)
+        if (c != 127 && c != 27) 
         {
-            text[i] = (char)c;
+            znaki[i] = (char)c;
         }
 
-        //backspace
-        if (c == 127 && i > 1)
+        //backspace//
+        if(c == 127 && i > 1)
         {
-            memset(&text[i-1], 0, sizeof(text[i-1]));
+            memset(&znaki[i-1], 0, sizeof(znaki[i-1]));
             i = i-2;
         }
-        if (c == 127 && i == 0)
+        else if (c == 127 && i == 1)
         {
-            memset(&text[0], 0, sizeof(text[0]));
-            i = 0;
+            memset(&znaki[0], 0, sizeof(znaki[0]));
+            i--;
         }
 
-        //escape
+        //escape//
         if(c == 27)
         {
-            memset(&text, 0, sizeof(text));
-            endwin();
+            ask = 1;
+            while(ask == 1)
+            {
+                printw("\n  Close? [y/n]: ");
+                refresh();
+                c = getch();
+                if (c == 121)
+                {
+                    endwin();
+                    ask = 0;
+                    return 0;
+                }
+                if (c == 110)
+                {
+                    doLoop = 1;
+                    ask = 0;
+                    clear();
+                }
+                else
+                {
+                    doLoop = 1;
+                    clear();
+                }
+            }
 
-
-
-
-
-
-            
-            return 0;
         }
 
-        //wypisz
-        for (k = 1; k<=i; k++)
+
+        for (k = 1; k <= i; k++)
         {
-            printw("%c", text[k]);
+            printw("%c",znaki[k]);
         }
         refresh();
 
+        i++;
+
 
     }
-
-
-    
-
-
-
-
-
-    getch();
-    endwin();
+    free(znaki);
 
 
 
