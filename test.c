@@ -306,7 +306,6 @@ int main(void)
                     {
                         printw("%c", savf[ks]);
                     }  
-                    printw(" | %d",is+1);
 
                     refresh();
                     is++;               
@@ -350,3 +349,5 @@ int main(void)
 
     return 0;
 }
+
+//TO DO: move saving to file to external function, add safeguards for different key combinations, make opening files from external function from main
